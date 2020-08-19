@@ -18,4 +18,8 @@
 -- WHERE ... (here you'll use the $1 parameter)
 
 
--- YOUR CODE HERE
+SELECT list_order, specification
+FROM instructions
+where recipe_id = $1
+order by list_order asc;
+

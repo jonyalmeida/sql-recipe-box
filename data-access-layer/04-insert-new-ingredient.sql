@@ -10,4 +10,5 @@
 -- that it inserts the value provided by the user.
 
 
--- YOUR CODE HERE
+insert into ingredients(amount, unit_of_measure_id, food_stuff, recipe_id )
+VALUES($1, $2, $3, $4);

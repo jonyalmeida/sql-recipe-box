@@ -21,5 +21,9 @@
 -- Pattern matching:
 -- https://www.postgresql.org/docs/current/functions-matching.html
 
-
+select id, title, updated from recipes
+where lower(title) like lower($1); 
 -- YOUR CODE HERE
+
+
+

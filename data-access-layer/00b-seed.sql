@@ -7,7 +7,7 @@
 -- Set the role to 'recipe_box_app' so the tables created will be owned by that
 -- user.
 
--- YOUR CODE HERE
+Set role 'recipe_box_app'\c ;
 
 
 
@@ -24,7 +24,12 @@
 -- | created     | TIMESTAMP    | NOT NULL, DEFAULT CURRENT_TIMESTAMP |
 -- | updated     | TIMESTAMP    | NOT NULL, DEFAULT CURRENT_TIMESTAMP |
 
--- YOUR CODE HERE
+create table recipes (
+  id serial primary key, 
+  title varchar(200) not null, 
+  created TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
+  updated TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP
+);
 
 
 
@@ -46,8 +51,13 @@
 -- | list_order    | INTEGER     | NOT NULL     |
 -- | recipe_id     | INTEGER     | FK, NOT NULL |
 
--- YOUR CODE HERE
-
+Create table instructions (
+    id serial primary key, 
+    specification text not null,
+    list_order integer not null,
+    recipe_id integer not null,
+    foreign key (recipe_id) references recipes (id)
+);
 
 
 
@@ -62,7 +72,10 @@
 -- | id          | SERIAL      | PK          |
 -- | name        | VARCHAR(20) | NOT NULL    |
 
--- YOUR CODE HERE
+create table units_of_measure (
+  id serial primary key, 
+  name VARCHAR(20) not null
+);
 
 
 
@@ -84,8 +97,15 @@
 -- | unit_of_measure_id | INTEGER       | FK, NOT NULL |
 -- | food_stuff         | VARCHAR(500)  | NOT NULL     |
 -- | recipe_id          | INTEGER       | FK, NOT NULL |
-
--- YOUR CODE HERE
+create table ingredients (
+    id serial primary key, 
+    amount NUMERIC(5, 2) not null,
+    unit_of_measure_id INTEGER not null,
+    food_stuff varchar(500) not null, 
+    recipe_id integer not null,
+    foreign key (recipe_id) references recipes(id),
+    foreign key (unit_of_measure_id) references units_of_measure(id)
+);
 
 
 

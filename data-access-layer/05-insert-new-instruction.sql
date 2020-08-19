@@ -42,4 +42,27 @@
 -- )
 
 
--- YOUR CODE HERE
+-- insert into instructions(specification, recipe_id)
+-- VALUES( 
+--     select list_order 
+--     from instructions
+--     WHERE COALESCE (list_order = MAX(select list_order from instructions where MAX(list_order) + 1), 1),
+--     $1,
+--     $2   
+--     );
+
+-- SOLUTION START
+INSERT INTO instructions(list_order, specification, recipe_id)
+VALUES
+(
+  (SELECT COALESCE(MAX(list_order), 0) + 1 FROM instructions WHERE recipe_id = $2),
+  $1,
+  $2
+);
+-- SOLUTION END
+
+
+
+-- insert into instructions(specification, recipe_id)
+-- VALUES( where list_order = COALESCE((select list_order from instructions where MAX(list_order) + 1, 1)) 
+-- $1, $2);
